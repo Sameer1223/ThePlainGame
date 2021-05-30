@@ -17,7 +17,8 @@ public class PlaneController : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         if (Mathf.Abs (h) > 0.1f || Mathf.Abs (v) > 0.1f) {
-			transform.Translate (new Vector3 (planeSpeed * v * Time.deltaTime, 0f, planeSpeed * h * Time.deltaTime));
+            //multiply by "-h" to correct horizontal direction
+			transform.Translate (new Vector3 (planeSpeed * v * Time.deltaTime, 0f, planeSpeed * -h * Time.deltaTime));
 		}
     }
 }
