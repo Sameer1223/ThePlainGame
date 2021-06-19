@@ -66,7 +66,6 @@ public class PlaneController : MonoBehaviour
         activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Mathf.Clamp(activeForwardSpeed + 
         Input.GetAxisRaw("Vertical") * speedChange, minSpeed, maxSpeed), forwardAcceleration * Time.deltaTime);
 
-        //Debug.Log(activeForwardSpeed);
         transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
     }
 }
