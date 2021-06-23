@@ -37,6 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\PlaneController.cs" />
+     <Compile Include="Assets\Scripts\PlaneShooting.cs" />
+     <Compile Include="Assets\Scripts\MoveBullet.cs" />
      <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <Reference Include="UnityEngine">
         <HintPath>D:/Program Files/Unity/2020.3.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
