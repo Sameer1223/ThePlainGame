@@ -499,14 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c987bb299524ced4fb5a497b3a39cb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 25
-  strafeSpeed: 7.5
-  hoverSpeed: 5
+  plane: {fileID: 1067772861}
   lookRateSpeed: 90
-  rollSpeed: 90
-  rollAcceleration: 3.5
-  rudderSpeed: 90
-  rudderAcceleration: 3.5
 --- !u!65 &1067772864
 BoxCollider:
   m_ObjectHideFlags: 0
