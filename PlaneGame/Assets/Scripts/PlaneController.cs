@@ -57,7 +57,6 @@ public class PlaneController : MonoBehaviour
         // Rotation inputs
         rollInput = Mathf.Lerp(rollInput, Input.GetAxisRaw("Roll"), rollAcceleration * Time.deltaTime);
         bool allowRudder = (Mathf.Abs(pitch) < 20 || Mathf.Abs(pitch) > 340) && (Mathf.Abs(roll) < 10 || Mathf.Abs(roll) > 350);
-        //Debug.Log("Allow Rudder: " + allowRudder + " Pitch: " + pitch + " Roll: " +  roll);
         rudderInput = Mathf.Lerp(rudderInput, allowRudder ? Input.GetAxisRaw("Horizontal") : 0, rudderAcceleration * Time.deltaTime);
 
 
@@ -65,7 +64,7 @@ public class PlaneController : MonoBehaviour
         
         activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Mathf.Clamp(activeForwardSpeed + 
         Input.GetAxisRaw("Vertical") * speedChange, minSpeed, maxSpeed), forwardAcceleration * Time.deltaTime);
-
+        //Debug.Log("Speed: " + activeForwardSpeed + " Allow Rudder: " + allowRudder + " Pitch: " + pitch + " Roll: " +  roll);
         transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
     }
 }

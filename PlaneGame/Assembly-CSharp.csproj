@@ -36,8 +36,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\PlaneController.cs" />
      <Compile Include="Assets\Scripts\PlaneShooting.cs" />
+     <Compile Include="Assets\Scripts\PlaneController.cs" />
      <Compile Include="Assets\Scripts\MoveBullet.cs" />
      <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <Reference Include="UnityEngine">

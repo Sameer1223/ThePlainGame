@@ -24,18 +24,15 @@ public class MoveBullet : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision){
-        Debug.Log("On Collision");
-        if(collision.gameObject.tag == "Enemy"){
+        if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Wall"){
             //collision.gameObject.GetComponent<Health>().currentHealth -= 20;
-            //GameObject newBlood = Instantiate(blood, this.transform.position, this.transform.rotation);
-            //newBlood.transform.parent = collision.transform;
             Destroy(this.gameObject);
         }
-        else{
-            //Instantiate(dirt, this.transform.position, this.transform.rotation);
-            Destroy(this.gameObject);
+
+        if(collision.gameObject.tag == "Wall"){
+            Debug.Log("Cringe");
         }
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 
 }
