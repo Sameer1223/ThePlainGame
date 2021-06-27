@@ -4,55 +4,68 @@ using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
-    // Parameters
-    //public float planeSpeed = 10f;
-    public float forwardSpeed = 25f, strafeSpeed = 7.5f, hoverSpeed = 5f;
-    private float activeForwardSpeed, activeStrafeSpeed, activeHoverSpeed;
-    private float forwardAcceleration = 2.5f, strafeAcceleration = 2f, hoverAcceleration = 2f;
+    public GameObject plane;
 
-    public float lookRateSpeed = 90f;
+    //Constants
+    public const int minSpeed = 10, maxSpeed = 30;
+    public const int speedChange = 10;
+
+    //[Attributes]
+    // Speed and acceleration values
+    private float activeForwardSpeed = 20f;
+    private float forwardAcceleration = 2.5f;
+
+    // Rotation inputs and speed
+    private float rollInput;
+    private float rollSpeed = 90f, rollAcceleration = 3.5f;
+
+    private float rudderInput;
+    private float rudderSpeed = 30f, rudderAcceleration = 1.5f;
+
+    // Mouse control
+    public float lookRateSpeed = 45f;
     private Vector2 lookInput, screenCenter, mouseDistance;
 
-    private float rollInput;
-    public float rollSpeed = 90f, rollAcceleration = 3.5f;
+    // Rotation values
+    private float pitch, roll;
+
+    // Conditions
+    private bool allowRudder;
 
     // Start is called before the first frame update
     void Start(){
-        screenCenter.x = Screen.width * .5f;
         screenCenter.y = Screen.height * .5f;
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
     }
+
     // Update is called once per frame
     void Update()
     {
-        lookInput.x = Input.mousePosition.x;
+        // Get mouse location
         lookInput.y = Input.mousePosition.y;
 
-        mouseDistance.x = (lookInput.x - screenCenter.x) / screenCenter.y;
+        // Get distance from cursor to centre of screen
         mouseDistance.y = (lookInput.y - screenCenter.y) / screenCenter.y;
-
         mouseDistance = Vector2.ClampMagnitude(mouseDistance, 1f);
 
+        // Get plane rotation
+        pitch = plane.transform.localRotation.eulerAngles.x;
+        roll = plane.transform.localRotation.eulerAngles.z;
+
+        // Rotation inputs
         rollInput = Mathf.Lerp(rollInput, Input.GetAxisRaw("Roll"), rollAcceleration * Time.deltaTime);
+        bool allowRudder = (Mathf.Abs(pitch) < 20 || Mathf.Abs(pitch) > 340) && (Mathf.Abs(roll) < 10 || Mathf.Abs(roll) > 350);
+        rudderInput = Mathf.Lerp(rudderInput, allowRudder ? Input.GetAxisRaw("Horizontal") : 0, rudderAcceleration * Time.deltaTime);
 
-        transform.Rotate(-mouseDistance.y * lookRateSpeed * Time.deltaTime, mouseDistance.x * lookRateSpeed * Time.deltaTime, rollInput * rollSpeed * Time.deltaTime, Space.Self);
 
-        activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Input.GetAxisRaw("Vertical") * forwardSpeed, forwardAcceleration * Time.deltaTime);
-        activeStrafeSpeed = Mathf.Lerp(activeStrafeSpeed, Input.GetAxisRaw("Horizontal") * strafeSpeed, strafeAcceleration * Time.deltaTime);
-        activeHoverSpeed = Mathf.Lerp(activeHoverSpeed, Input.GetAxisRaw("Altitude") * hoverSpeed, hoverAcceleration * Time.deltaTime);
-
+        transform.Rotate(-mouseDistance.y * lookRateSpeed * Time.deltaTime, rudderInput * rudderSpeed * Time.deltaTime, rollInput * rollSpeed * Time.deltaTime, Space.Self);
+        
+        activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Mathf.Clamp(activeForwardSpeed + 
+        Input.GetAxisRaw("Vertical") * speedChange, minSpeed, maxSpeed), forwardAcceleration * Time.deltaTime);
+        //Debug.Log("Speed: " + activeForwardSpeed + " Allow Rudder: " + allowRudder + " Pitch: " + pitch + " Roll: " +  roll);
         transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
-        transform.position += (transform.right * activeStrafeSpeed * Time.deltaTime) + (transform.up * activeHoverSpeed * Time.deltaTime);
-
-
-
-        /*
-        if (Mathf.Abs (h) > 0.1f || Mathf.Abs (v) > 0.1f) {
-            //multiply by "-h" to correct horizontal direction
-			transform.Translate (new Vector3 (planeSpeed * v * Time.deltaTime, 0f, planeSpeed * -h * Time.deltaTime));
-		}
-        */
     }
 }
+
