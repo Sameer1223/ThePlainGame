@@ -776,7 +776,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b90d0456e5c8044d92b239da62e8ac2, type: 3}
+  m_Script: {fileID: 11500000, guid: eb844349342ea474aaa68c31046ac5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSpeed: 5
