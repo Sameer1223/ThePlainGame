@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaneShooting : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     public float cooldownSpeed;
     public float fireRate;
