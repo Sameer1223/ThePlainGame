@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
     public GameObject plane;
+    //public Camera cam;
 
     //Constants
-    public const int minSpeed = 10, maxSpeed = 30;
     public const int speedChange = 10;
+    public float minSpeed, maxSpeed;
 
     //[Attributes]
     // Speed and acceleration values
-    private float activeForwardSpeed = 20f;
+    private float activeForwardSpeed;
     private float forwardAcceleration = 2.5f;
 
     // Rotation inputs and speed
@@ -40,9 +42,39 @@ public class PlaneController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    void OnEnable(){
+        plane = transform.gameObject;
+        activeForwardSpeed = PlaneSelection.player.getSpeed();
+        minSpeed = activeForwardSpeed - speedChange;
+        maxSpeed = activeForwardSpeed + speedChange;
+    }
+
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
+        MovePlane();
+        
+        if (Input.GetKeyDown(KeyCode.Alpha1)){
+            PlaneSelection.player.getAbilityOne().TriggerAbility();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2)){
+            PlaneSelection.player.getAbilityTwo().TriggerAbility();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3)){
+            PlaneSelection.player.getUltimateAbility().TriggerAbility();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4)){
+            Debug.Log(PlaneSelection.player.getPlaneName() + " " + PlaneSelection.player.getHealth() + " " + PlaneSelection.player.getArmour() + " " +  PlaneSelection.player.getFireRate());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5)){
+            Debug.Log(activeForwardSpeed + " " +  minSpeed + " " +  maxSpeed);
+        }
+    }
+
+    public void MovePlane(){
         // Get mouse location
         lookInput.y = Input.mousePosition.y;
 
@@ -64,6 +96,7 @@ public class PlaneController : MonoBehaviour
         
         activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Mathf.Clamp(activeForwardSpeed + 
         Input.GetAxisRaw("Vertical") * speedChange, minSpeed, maxSpeed), forwardAcceleration * Time.deltaTime);
+        //Debug.Log(activeForwardSpeed);
         //Debug.Log("Speed: " + activeForwardSpeed + " Allow Rudder: " + allowRudder + " Pitch: " + pitch + " Roll: " +  roll);
         transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
     }

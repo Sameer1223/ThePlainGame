@@ -17,12 +17,6 @@ public class MoveBullet : MonoBehaviour
         this.GetComponent<Rigidbody>().AddForce((hitPoint - this.transform.position).normalized*speed);    
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnCollisionEnter(Collision collision){
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Wall"){
             //collision.gameObject.GetComponent<Health>().currentHealth -= 20;
@@ -30,7 +24,7 @@ public class MoveBullet : MonoBehaviour
         }
 
         if(collision.gameObject.tag == "Wall"){
-            Debug.Log("Cringe");
+            //Debug.Log("Cringe");
         }
         //Destroy(this.gameObject);
     }
