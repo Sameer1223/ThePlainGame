@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlaneController : MonoBehaviour
@@ -44,6 +41,7 @@ public class PlaneController : MonoBehaviour
 
     void OnEnable(){
         plane = transform.gameObject;
+        Debug.Log("BRUH " + plane.name);
         activeForwardSpeed = PlaneSelection.player.getSpeed();
         minSpeed = activeForwardSpeed - speedChange;
         maxSpeed = activeForwardSpeed + speedChange;
@@ -96,7 +94,8 @@ public class PlaneController : MonoBehaviour
         
         activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Mathf.Clamp(activeForwardSpeed + 
         Input.GetAxisRaw("Vertical") * speedChange, minSpeed, maxSpeed), forwardAcceleration * Time.deltaTime);
-        //Debug.Log(activeForwardSpeed);
+        PlaneSelection.player.setSpeed(activeForwardSpeed);
+        
         //Debug.Log("Speed: " + activeForwardSpeed + " Allow Rudder: " + allowRudder + " Pitch: " + pitch + " Roll: " +  roll);
         transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
     }
