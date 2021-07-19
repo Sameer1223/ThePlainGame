@@ -9,7 +9,6 @@ public class InstantiatePlane : MonoBehaviour {
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         if (scene.name == "GameScene"){
-            Debug.Log("Cringe!");
             Instantiate(Resources.Load("Planes/" + PlaneSelection.player.getModelName()) as GameObject, transform.position, Quaternion.identity);
             GameObject.Find("HUD").GetComponent<StatsUI>().OnPlaneSelection();
         }

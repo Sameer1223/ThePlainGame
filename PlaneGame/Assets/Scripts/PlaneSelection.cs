@@ -16,7 +16,6 @@ public class PlaneSelection : MonoBehaviour
         
         player = new BasePlane(selection.modelName, selection.planeName, selection.health, 
             selection.speed, selection.fireRate, selection.armour, selection.abilityOne, selection.abilityTwo, selection.ultimateAbility);
-        Debug.Log(player.getPlaneName());
 
         SceneManager.LoadScene("GameScene");
     }

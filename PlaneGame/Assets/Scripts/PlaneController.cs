@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlaneController : MonoBehaviour
 {
     public GameObject plane;
-    //public Camera cam;
 
     //Constants
     public const int speedChange = 10;
@@ -41,7 +40,6 @@ public class PlaneController : MonoBehaviour
 
     void OnEnable(){
         plane = transform.gameObject;
-        Debug.Log("BRUH " + plane.name);
         activeForwardSpeed = PlaneSelection.player.getSpeed();
         minSpeed = activeForwardSpeed - speedChange;
         maxSpeed = activeForwardSpeed + speedChange;
@@ -61,14 +59,6 @@ public class PlaneController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3)){
             PlaneSelection.player.getUltimateAbility().TriggerAbility();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4)){
-            Debug.Log(PlaneSelection.player.getPlaneName() + " " + PlaneSelection.player.getHealth() + " " + PlaneSelection.player.getArmour() + " " +  PlaneSelection.player.getFireRate());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5)){
-            Debug.Log(activeForwardSpeed + " " +  minSpeed + " " +  maxSpeed);
         }
     }
 
@@ -95,7 +85,7 @@ public class PlaneController : MonoBehaviour
         activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Mathf.Clamp(activeForwardSpeed + 
         Input.GetAxisRaw("Vertical") * speedChange, minSpeed, maxSpeed), forwardAcceleration * Time.deltaTime);
         PlaneSelection.player.setSpeed(activeForwardSpeed);
-        
+
         //Debug.Log("Speed: " + activeForwardSpeed + " Allow Rudder: " + allowRudder + " Pitch: " + pitch + " Roll: " +  roll);
         transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
     }
