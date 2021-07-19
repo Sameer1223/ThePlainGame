@@ -1,32 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    public float cooldownSpeed;
     public float fireRate;
     public GameObject bullet;
     public GameObject shootPoint;
     public AudioSource gunshot;
     public AudioClip singleShot;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+    private float cooldownSpeed = 0f;
+
+    void OnEnable(){
+        fireRate = PlaneSelection.player.getFireRate();
     }
 
     // Update is called once per frame
     void Update()
     {
-        cooldownSpeed += Time.deltaTime * 60f;
-        if (Input.GetButton("Fire1")){
-            //Debug.Log("Button pressed");
-            if (cooldownSpeed>=fireRate){
+        if (Input.GetButton("Fire1") && Time.time >= cooldownSpeed){
+                cooldownSpeed = Time.time + 1f / fireRate;
                 Shoot();
-                cooldownSpeed = 0;
-            }
         }
     }
 
