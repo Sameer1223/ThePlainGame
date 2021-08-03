@@ -11,6 +11,7 @@ public class InstantiatePlane : MonoBehaviour {
         if (scene.name == "GameScene"){
             Instantiate(Resources.Load("Planes/" + PlaneSelection.player.getModelName()) as GameObject, transform.position, Quaternion.identity);
             GameObject.Find("HUD").GetComponent<StatsUI>().OnPlaneSelection();
+            GameObject.Find("HUD").GetComponent<AbilityCooldownsUI>().OnPlaneSelection();
         }
     }
 
