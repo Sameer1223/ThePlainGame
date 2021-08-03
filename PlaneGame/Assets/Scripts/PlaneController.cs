@@ -50,15 +50,15 @@ public class PlaneController : MonoBehaviour
         MovePlane();
         
         if (Input.GetKeyDown(KeyCode.Alpha1)){
-            PlaneSelection.player.getAbilityOne().TriggerAbility();
+            PlaneSelection.player.getAbilityOne().TriggerAbilityIfAvailable();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)){
-            PlaneSelection.player.getAbilityTwo().TriggerAbility();
+            PlaneSelection.player.getAbilityTwo().TriggerAbilityIfAvailable();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3)){
-            PlaneSelection.player.getUltimateAbility().TriggerAbility();
+            PlaneSelection.player.getUltimateAbility().TriggerAbilityIfAvailable();
         }
     }
 
